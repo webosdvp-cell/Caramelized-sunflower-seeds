@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Карамелизованные семечки — сладкий хруст</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #fef7f0;
+            background-image: 
+                radial-gradient(circle at 10% 20%, #fff3e0 0%, #fce4d6 90%),
+                repeating-linear-gradient(45deg, transparent, transparent 50px, rgba(255,215,175,0.1) 50px, rgba(255,215,175,0.1) 51px);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: rgba(255, 248, 235, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 60px 60px 30px 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 215, 175, 0.5);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #4d2e1b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(255, 215, 175, 0.3);
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #4d2e1b;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .stat-item:hover {
+            background: rgba(255, 215, 175, 0.5);
+            transform: scale(1.02);
+        }
+
+        .stat-item .num {
+            font-size: 1.3rem;
+            color: #b87a48;
+        }
+
+        .stat-item.highlight {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .stat-item.highlight:hover {
+            background: #ff5520;
+        }
+
+        .card {
+            background: rgba(255, 248, 235, 0.75);
+            backdrop-filter: blur(4px);
+            border-radius: 56px 56px 40px 40px;
+            box-shadow: 0 30px 50px rgba(110, 60, 30, 0.15), 0 10px 20px rgba(0, 0, 0, 0.05);
+            padding: 30px 30px 40px;
+            border: 1px solid rgba(255, 215, 175, 0.5);
+            margin-bottom: 30px;
+        }
+
+        .card::before {
+            content: "🍯";
+            font-size: 3rem;
+            position: relative;
+            display: block;
+            text-align: center;
+            margin-top: -20px;
+            margin-bottom: -10px;
+            opacity: 0.3;
+            letter-spacing: 12px;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: #4d2e1b;
+            text-align: center;
+            letter-spacing: 1px;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            text-shadow: 0 4px 12px rgba(180, 100, 40, 0.1);
+        }
+
+        .subhead {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #7f4f2e;
+            background: rgba(255, 225, 190, 0.5);
+            display: inline-block;
+            padding: 6px 28px;
+            border-radius: 60px;
+            margin: 0 auto 24px;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(2px);
+            border: 1px solid #f7d5b0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+            margin: 18px 0 25px;
+        }
+
+        .hero-image {
+            background: linear-gradient(145deg, #d9a066, #b87a48);
+            border-radius: 100px 30px 100px 30px;
+            min-height: 280px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            box-shadow: 0 18px 28px -8px rgba(100, 60, 20, 0.3);
+            border: 3px solid #f5d6b0;
+            padding: 16px;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,140,0.2) 0%, transparent 70%);
+            animation: shimmer 4s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        .hero-image:hover {
+            transform: scale(1.02);
+        }
+
+        .hero-emoji {
+            font-size: 7rem;
+            line-height: 1;
+            filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.1));
+            background: rgba(255, 215, 140, 0.3);
+            padding: 12px 24px;
+            border-radius: 120px;
+            backdrop-filter: blur(2px);
+            z-index: 1;
+        }
+
+        .hero-text-icon {
+            font-size: 1.3rem;
+            background: #fcebd9;
+            padding: 8px 22px;
+            border-radius: 40px;
+            margin-top: 12px;
+            color: #3d2a19;
+            font-weight: 700;
+            border: 1px solid #f3c9a5;
+            z-index: 1;
+        }
+
+        .badge-popular {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #ff6b35;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(255,107,53,0.4);
+            animation: pulse-badge 2s infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .info p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #3d2b1b;
+            background: rgba(252, 240, 224, 0.7);
+            padding: 12px 18px;
+            border-radius: 40px 12px 40px 12px;
+            backdrop-filter: blur(2px);
+            border-left: 6px solid #dba87a;
+            font-weight: 500;
+        }
+
+        .highlight {
+            background: #f7e1ca;
+            padding: 16px 22px;
+            border-radius: 60px 12px 60px 12px;
+            display: inline-block;
+            border: 1px solid #edc8a8;
+            font-weight: 700;
+            color: #3d2415;
+            box-shadow: inset 0 0 0 2px #fff8ee;
+        }
+
+        .timer-section {
+            background: linear-gradient(135deg, #492e1c, #6b3f25);
+            border-radius: 60px;
+            padding: 25px 30px;
+            margin: 20px 0 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            color: #ffe5c6;
+            box-shadow: 0 10px 20px rgba(73, 46, 28, 0.3);
+        }
+
+        .timer-section .label {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .timer {
+            display: flex;
+            gap: 15px;
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .timer-item {
+            background: rgba(255, 215, 140, 0.15);
+            padding: 8px 18px;
+            border-radius: 20px;
+            text-align: center;
+            min-width: 70px;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255, 215, 140, 0.2);
+        }
+
+        .timer-item span {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 400;
+            opacity: 0.7;
+        }
+
+        .flavors {
+            margin: 20px 0;
+        }
+
+        .flavors-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #4d2e1b;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .flavors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .flavor-item {
+            background: rgba(255, 248, 235, 0.7);
+            padding: 14px 12px;
+            border-radius: 40px;
+            text-align: center;
+            border: 2px solid #eaccb4;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+            color: #4d2e1b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            backdrop-filter: blur(2px);
+        }
+
+        .flavor-item:hover {
+            border-color: #b8845a;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(184, 132, 90, 0.2);
+        }
+
+        .flavor-item.active {
+            border-color: #b8845a;
+            background: rgba(184, 132, 90, 0.15);
+            box-shadow: 0 0 0 3px rgba(184, 132, 90, 0.2);
+        }
+
+        .flavor-item .emoji {
+            font-size: 2rem;
+        }
+
+        .flavor-item .price-tag-sm {
+            font-size: 0.85rem;
+            color: #b87a48;
+            font-weight: 700;
+        }
+
+        .add-to-cart-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .add-to-cart-btn:active {
+            transform: scale(0.98);
+        }
+
+        .price-tag {
+            background: #492e1c;
+            color: #ffe5c6;
+            padding: 14px 20px;
+            border-radius: 80px;
+            font-size: 2.4rem;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: 2px;
+            box-shadow: 0 8px 0 #23160e;
+            border: 1px solid #cb9f77;
+            margin: 10px 0 20px;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .price-tag small {
+            font-size: 1.1rem;
+            font-weight: 400;
+            opacity: 0.8;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .order-form {
+            margin: 20px 0 15px;
+            display: none;
+            flex-direction: column;
+            gap: 14px;
+            background: rgba(255, 248, 235, 0.5);
+            padding: 25px;
+            border-radius: 40px;
+            border: 2px dashed #dba87a;
+        }
+
+        .order-form.show {
+            display: flex;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .form-row input,
+        .form-row select {
+            flex: 1;
+            min-width: 180px;
+            padding: 16px 22px;
+            border-radius: 60px;
+            border: 2px solid #eaccb4;
+            background: rgba(255, 248, 240, 0.9);
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #3d2b1b;
+            outline: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .form-row input:focus,
+        .form-row select:focus {
+            border-color: #b8845a;
+            box-shadow: 0 0 0 4px rgba(184, 132, 90, 0.15), 0 4px 12px rgba(184, 132, 90, 0.1);
+            background: #fffcf5;
+            transform: translateY(-2px);
+        }
+
+        .form-row input::placeholder {
+            color: #b28a6e;
+            font-weight: 400;
+            opacity: 0.7;
+        }
+
+        .form-row input:hover,
+        .form-row select:hover {
+            border-color: #c9a07a;
+            background: #fffaf5;
+        }
+
+        .form-row input[type="tel"] {
+            letter-spacing: 0.5px;
+        }
+
+        .form-row input[type="number"] {
+            max-width: 160px;
+            -moz-appearance: textfield;
+        }
+
+        .form-row input[type="number"]::-webkit-outer-spin-button,
+        .form-row input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .submit-order-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .submit-order-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .submit-order-btn:active {
+            transform: scale(0.98);
+        }
+
+        .submit-order-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0 10px;
+            justify-content: center;
+        }
+
+        .btn {
+            background: #f8d5b0;
+            border: none;
+            padding: 16px 30px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #352011;
+            border-radius: 80px;
+            cursor: pointer;
+            flex: 1 1 auto;
+            min-width: 160px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 6px 0 #b8845a, 0 10px 18px -8px #b17d53;
+            transition: 0.1s linear;
+            border: 1px solid #fce3c6;
+            letter-spacing: 0.5px;
+            background: linear-gradient(to bottom, #fadaac, #edc294);
+        }
+
+        .btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #a06d46;
+        }
+
+        .btn-primary {
+            background: #cb8b54;
+            background: linear-gradient(to bottom, #dba16a, #bf7d47);
+            color: #fff6e8;
+            border-color: #dba87a;
+            box-shadow: 0 6px 0 #7f532e, 0 10px 18px -6px #865f38;
+            text-shadow: 0 1px 0 #452f1b;
+        }
+
+        .btn-primary:active {
+            box-shadow: 0 2px 0 #6a4326;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #7f5f42;
+            pointer-events: none;
+        }
+
+        .btn-secondary {
+            background: #fff3e0;
+            box-shadow: 0 6px 0 #d4c0b0;
+        }
+
+        .reviews-section {
+            margin: 30px 0 20px;
+        }
+
+        .reviews-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4d2e1b;
+            text-align: center;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .reviews-carousel {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 10px 5px 20px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+        }
+
+        .reviews-carousel::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .reviews-carousel::-webkit-scrollbar-thumb {
+            background: #b8845a;
+            border-radius: 20px;
+        }
+
+        .review-card {
+            min-width: 260px;
+            max-width: 280px;
+            background: rgba(255, 248, 235, 0.8);
+            backdrop-filter: blur(4px);
+            padding: 20px;
+            border-radius: 40px;
+            border: 1px solid #eaccb4;
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .review-card .stars {
+            color: #f5a623;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+        }
+
+        .review-card .text {
+            margin: 8px 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #3d2b1b;
+        }
+
+        .review-card .author {
+            font-weight: 700;
+            color: #4d2e1b;
+            font-size: 0.9rem;
+        }
+
+        .review-card .date {
+            font-size: 0.75rem;
+            color: #a08068;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px 18px;
+            margin: 24px 0 12px;
+            padding: 12px 0;
+            border-top: 2px dashed #dfbc9a;
+            border-bottom: 2px dashed #dfbc9a;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 232, 207, 0.6);
+            padding: 6px 18px 6px 12px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #3f2819;
+            backdrop-filter: blur(2px);
+        }
+
+        .feature-item span {
+            font-size: 1.7rem;
+            line-height: 1;
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .popup-overlay.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup-content {
+            background: #fef7f0;
+            max-width: 600px;
+            width: 100%;
+            padding: 40px 30px;
+            border-radius: 60px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            position: relative;
+            animation: slideUp 0.4s ease;
+            border: 2px solid #f5d6b0;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .popup-content .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #4d2e1b;
+            opacity: 0.5;
+            transition: 0.2s;
+        }
+
+        .popup-content .close-btn:hover {
+            opacity: 1;
+            transform: rotate(90deg);
+        }
+
+        .popup-content .emoji-big {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .popup-content h3 {
+            font-size: 1.8rem;
+            color: #4d2e1b;
+            margin-bottom: 8px;
+        }
+
+        .popup-content p {
+            color: #5a3f2b;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .popup-content .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .popup-content .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eaccb4;
+            gap: 10px;
+        }
+
+        .popup-content .cart-item .item-info {
+            flex: 1;
+        }
+
+        .popup-content .cart-item .item-name {
+            font-weight: 600;
+            color: #4d2e1b;
+        }
+
+        .popup-content .cart-item .item-price {
+            color: #b87a48;
+            font-weight: 700;
+        }
+
+        .popup-content .cart-item .item-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .popup-content .cart-item .item-controls button {
+            background: #f0e0d0;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-weight: 700;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-content .cart-item .item-controls button:hover {
+            background: #dba87a;
+            color: white;
+        }
+
+        .popup-content .cart-item .item-controls .qty {
+            font-weight: 700;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .popup-content .cart-total {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #4d2e1b;
+            text-align: right;
+            padding-top: 15px;
+            border-top: 2px solid #eaccb4;
+            margin-top: 10px;
+        }
+
+        .popup-content .cart-empty {
+            text-align: center;
+            color: #a08068;
+            padding: 30px 0;
+            font-size: 1.2rem;
+        }
+
+        .popup-content .btn-checkout {
+            margin-top: 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+            width: 100%;
+        }
+
+        .popup-content .btn-checkout:hover {
+            transform: scale(1.02);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #7b5d42;
+            font-weight: 500;
+            opacity: 0.9;
+            font-size: 0.95rem;
+            background: rgba(251, 235, 215, 0.5);
+            padding: 15px 20px;
+            border-radius: 60px;
+            backdrop-filter: blur(2px);
+        }
+
+        .footer a {
+            color: #7b5d42;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        @media (max-width: 700px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .card {
+                padding: 20px 16px 30px;
+                border-radius: 40px;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+            .price-tag {
+                font-size: 1.8rem;
+                padding: 12px 16px;
+                margin: 8px 0 16px;
+            }
+            .btn {
+                font-size: 1.1rem;
+                padding: 14px 20px;
+                min-width: 130px;
+            }
+            .hero-image {
+                min-height: 200px;
+            }
+            .hero-emoji {
+                font-size: 4.5rem;
+            }
+            .info p {
+                font-size: 1rem;
+            }
+            .timer {
+                font-size: 1.5rem;
+                gap: 10px;
+            }
+            .timer-item {
+                min-width: 55px;
+                padding: 6px 12px;
+            }
+            .header {
+                padding: 15px 20px;
+                justify-content: center;
+                text-align: center;
+            }
+            .logo {
+                font-size: 1.4rem;
+            }
+            .timer-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            .popup-content {
+                padding: 30px 20px;
+            }
+            .form-row input,
+            .form-row select {
+                min-width: 100%;
+                padding: 14px 18px;
+            }
+            .order-form {
+                padding: 18px 15px;
+            }
+            .btn-group {
+                margin: 16px 0 8px;
+            }
+        }
+
+        @media (max-width: 450px) {
+            h1 {
+                font-size: 1.9rem;
+            }
+            .subhead {
+                font-size: 1rem;
+                padding: 4px 20px;
+            }
+            .price-tag {
+                font-size: 1.6rem;
+                padding: 10px 14px;
+                margin: 6px 0 14px;
+            }
+            .feature-item {
+                font-size: 0.9rem;
+                padding: 4px 14px 4px 8px;
+            }
+            .btn-group {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .flavors-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .review-card {
+                min-width: 200px;
+            }
+            .popup-content .cart-item {
+                flex-wrap: wrap;
+            }
+            .form-row input[type="number"] {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="header">
+        <div class="logo">
+            🥜 Семечки.ру
+        </div>
+        <div class="header-stats">
+            <div class="stat-item">
+                🛒 Заказов сегодня: <span class="num" id="ordersToday">128</span>
+            </div>
+            <div class="stat-item">
+                ⭐ 4.9 <span style="opacity:0.5;">•</span> 214 отзывов
+            </div>
+            <div class="stat-item highlight" id="cartHeaderBtn">
+                🛍️ Корзина: <span id="cartCountHeader">0</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="card">
+        <h1>🥜 Карамельный хруст</h1>
+        <div style="text-align: center;">
+            <span class="subhead">✨ ручная карамелизация ✨</span>
+        </div>
+
+        <div class="grid">
+            <div class="hero-image">
+                <span class="badge-popular">🔥 Популярное</span>
+                <div class="hero-emoji">🌰🔥</div>
+                <div class="hero-text-icon">🍯 хрустящая глазурь</div>
+            </div>
+
+            <div class="info">
+                <p>
+                    <span style="font-size: 1.5rem; margin-right: 6px;">🧈</span>
+                    Семечки подсолнечника в тягучей карамели. <br>
+                    <strong>Никакой химии</strong> — только сахар, сливочное масло и щепотка любви.
+                </p>
+                <p>
+                    <span style="font-size: 1.5rem; margin-right: 6px;">🔥</span>
+                    Хрустят, тают, дарят настроение. Идеальный перекус или подарок.
+                </p>
+                <div class="highlight">
+                    ⚡️ Свежая партия — сегодня! Доставка 1-2 дня
+                </div>
+                <button class="add-to-cart-btn" id="addToCartBtn">
+                    ➕ Добавить в корзину
+                </button>
+            </div>
+        </div>
+
+        <div class="timer-section">
+            <div class="label">
+                🎁 Акция: скидка 15% до конца дня!
+            </div>
+            <div class="timer" id="timer">
+                <div class="timer-item"><span id="hours">23</span> <span>часов</span></div>
+                <div class="timer-item"><span id="minutes">59</span> <span>минут</span></div>
+                <div class="timer-item"><span id="seconds">59</span> <span>секунд</span></div>
+            </div>
+        </div>
+
+        <div class="flavors">
+            <div class="flavors-title">🍭 Выберите вкус</div>
+            <div class="flavors-grid" id="flavorsGrid">
+                <div class="flavor-item active" data-price="290" data-name="Классическая карамель">
+                    <span class="emoji">🍯</span>
+                    Классическая
+                    <span class="price-tag-sm">290 ₽</span>
+                </div>
+                <div class="flavor-item" data-price="320" data-name="Солёная карамель">
+                    <span class="emoji">🧂</span>
+                    Солёная карамель
+                    <span class="price-tag-sm">320 ₽</span>
+                </div>
+                <div class="flavor-item" data-price="350" data-name="Корица и мёд">
+                    <span class="emoji">🍂</span>
+                    Корица + мёд
+                    <span class="price-tag-sm">350 ₽</span>
+                </div>
+                <div class="flavor-item" data-price="380" data-name="Шоколадная глазурь">
+                    <span class="emoji">🍫</span>
+                    Шоколадная
+                    <span class="price-tag-sm">380 ₽</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="price-tag" id="priceDisplay">
+            290 ₽ <small>за 200 г · вакуумная упаковка</small>
+        </div>
+
+        <form class="order-form" id="orderForm">
+            <h3 style="text-align: center; color: #4d2e1b; margin-bottom: 5px;">📝 Данные для доставки</h3>
+            <div class="form-row">
+                <input type="text" id="customerName" placeholder="👤 Ваше имя" required>
+                <input type="tel" id="customerPhone" placeholder="📱 Телефон или Telegram" required>
+            </div>
+            <div class="form-row">
+                <input type="text" id="customerAddress" placeholder="📍 Адрес доставки (город, улица, дом)" required>
+                <input type="number" id="quantity" placeholder="📦 Количество" min="1" value="1" style="max-width: 160px;">
+            </div>
+            <div class="form-row" style="flex-direction: column;">
+                <button type="submit" class="submit-order-btn" id="submitOrderBtn">
+                    ✅ Отправить заказ
+                </button>
+                <button type="button" class="btn" id="hideFormBtn" style="background: #e0d0c0; box-shadow: 0 4px 0 #b0a090; width: 100%;">
+                    ✖️ Скрыть форму
+                </button>
+            </div>
+        </form>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" id="checkoutBtn">
+                🛒 Оформить заказ
+            </button>
+            <button type="button" class="btn" id="infoBtn">
+                📦 Подробнее
+            </button>
+            <button type="button" class="btn btn-secondary" id="cartBtn">
+                🛍️ Корзина <span id="cartCount" style="background: #ff6b35; color: white; border-radius: 50%; padding: 2px 10px; font-size: 0.9rem;">0</span>
+            </button>
+        </div>
+
+        <div class="reviews-section">
+            <div class="reviews-title">
+                💬 Что говорят наши клиенты
+                <span style="font-size: 1rem; opacity: 0.6;">(свайпайте →)</span>
+            </div>
+            <div class="reviews-carousel" id="reviewsCarousel">
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="text">"Лучшие семечки! Хрустят, тают во рту. Заказываю уже третий раз!"</div>
+                    <div class="author">— Анна М.</div>
+                    <div class="date">2 дня назад</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="text">"Солёная карамель — это бомба! Идеальный перекус к пиву."</div>
+                    <div class="author">— Дмитрий К.</div>
+                    <div class="date">5 дней назад</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="text">"Подарил коллегам, все в восторге. Уже сделали повторный заказ."</div>
+                    <div class="author">— Елена В.</div>
+                    <div class="date">1 неделя назад</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐</div>
+                    <div class="text">"Очень вкусно, но хотелось бы побольше упаковку. Съедается моментально!"</div>
+                    <div class="author">— Игорь С.</div>
+                    <div class="date">2 недели назад</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="text">"Доставили быстро, семечки свежие. Обязательно закажу ещё!"</div>
+                    <div class="author">— Мария П.</div>
+                    <div class="date">3 недели назад</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-item"><span>🌱</span> Отборные семечки</div>
+            <div class="feature-item"><span>🍯</span> Карамель на масле</div>
+            <div class="feature-item"><span>🚚</span> Доставка 1-2 дня</div>
+            <div class="feature-item"><span>🧂</span> С легкой солью</div>
+            <div class="feature-item"><span>♻️</span> Эко-упаковка</div>
+        </div>
+
+        <div class="footer">
+            ⭐️ 4.9 на основе 214 отзывов · делаем с 2018 года · <a href="#">Политика конфиденциальности</a>
+        </div>
+    </div>
+</div>
+
+<div class="popup-overlay" id="popupOverlay">
+    <div class="popup-content">
+        <button class="close-btn" id="popupClose">&times;</button>
+        <div class="emoji-big" id="popupEmoji">🎉</div>
+        <h3 id="popupTitle">Спасибо!</h3>
+        <div id="popupBody"></div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ===== ВАШ ВЕБХУК =====
+        const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1526351731708002365/oN4h9bs_o4dBcvwVCzNDnSGHuAQ6RQsxCTItNELkE4UMi4LG_ukL5spKzdslU-tjeTn4';
+
+        let selectedFlavor = { name: 'Классическая карамель', price: 290 };
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let ordersToday = parseInt(localStorage.getItem('ordersToday')) || 128;
+
+        const popupOverlay = document.getElementById('popupOverlay');
+        const popupClose = document.getElementById('popupClose');
+        const popupEmoji = document.getElementById('popupEmoji');
+        const popupTitle = document.getElementById('popupTitle');
+        const popupBody = document.getElementById('popupBody');
+        const priceDisplay = document.getElementById('priceDisplay');
+        const cartCountEl = document.getElementById('cartCount');
+        const cartCountHeader = document.getElementById('cartCountHeader');
+        const ordersTodayEl = document.getElementById('ordersToday');
+        const addToCartBtn = document.getElementById('addToCartBtn');
+        const cartBtn = document.getElementById('cartBtn');
+        const cartHeaderBtn = document.getElementById('cartHeaderBtn');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const orderForm = document.getElementById('orderForm');
+        const hideFormBtn = document.getElementById('hideFormBtn');
+        const submitBtn = document.getElementById('submitOrderBtn');
+
+        // === ТАЙМЕР ===
+        function startTimer() {
+            let targetTime = new Date();
+            targetTime.setHours(23, 59, 59, 999);
+            function updateTimer() {
+                const now = new Date();
+                const diff = targetTime - now;
+                if (diff <= 0) {
+                    document.getElementById('hours').textContent = '00';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
+                    return;
+                }
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            }
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        }
+        startTimer();
+
+        // === ВЫБОР ВКУСА ===
+        document.querySelectorAll('.flavor-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.flavor-item').forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+                const price = parseInt(this.dataset.price);
+                const name = this.dataset.name;
+                selectedFlavor = { name, price };
+                priceDisplay.innerHTML = `${price} ₽ <small>за 200 г · вакуумная упаковка</small>`;
+            });
+        });
+
+        // === КОРЗИНА ===
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCountEl.textContent = totalItems;
+            cartCountHeader.textContent = totalItems;
+            if (totalItems > 0) {
+                cartCountEl.style.transform = 'scale(1.3)';
+                cartCountHeader.style.transform = 'scale(1.3)';
+                setTimeout(() => {
+                    cartCountEl.style.transform = 'scale(1)';
+                    cartCountHeader.style.transform = 'scale(1)';
+                }, 200);
+            }
+        }
+
+        function addToCart(flavor, quantity = 1) {
+            const existing = cart.find(item => item.name === flavor.name);
+            if (existing) {
+                existing.quantity += quantity;
+            } else {
+                cart.push({ name: flavor.name, price: flavor.price, quantity: quantity });
+            }
+            saveCart();
+            showPopup('🛍️', 'Добавлено в корзину!',
+                `<p>${flavor.name} (${quantity} шт.) добавлена в корзину</p>
+                 <p style="font-size: 0.9rem; opacity: 0.7;">В корзине ${cart.reduce((s,i) => s + i.quantity, 0)} товаров</p>`);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            saveCart();
+            showCart();
+        }
+
+        function changeQuantity(index, delta) {
+            if (cart[index].quantity + delta <= 0) {
+                removeFromCart(index);
+                return;
+            }
+            cart[index].quantity += delta;
+            saveCart();
+            showCart();
+        }
+
+        function getTotalPrice() {
+            return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        }
+
+        function showCart() {
+            if (cart.length === 0) {
+                showPopup('🛍️', 'Корзина пуста', '<div class="cart-empty">🥜 Добавьте вкусные семечки!</div>');
+                return;
+            }
+            let html = '<div class="cart-items">';
+            cart.forEach((item, index) => {
+                html += `
+                    <div class="cart-item">
+                        <div class="item-info">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">${item.price} ₽</div>
+                        </div>
+                        <div class="item-controls">
+                            <button onclick="window.changeQty(${index}, -1)">−</button>
+                            <span class="qty">${item.quantity}</span>
+                            <button onclick="window.changeQty(${index}, 1)">+</button>
+                            <button onclick="window.removeItem(${index})" style="background: #ff6b35; color: white;">✕</button>
+                        </div>
+                    </div>
+                `;
+            });
+            html += `</div>
+                <div class="cart-total">Итого: ${getTotalPrice()} ₽</div>
+                <button class="btn-checkout" onclick="window.checkoutFromCart()">✅ Оформить заказ</button>
+            `;
+            showPopup('🛍️', 'Ваша корзина', html);
+        }
+
+        window.changeQty = function(index, delta) { changeQuantity(index, delta); };
+        window.removeItem = function(index) { removeFromCart(index); };
+        window.checkoutFromCart = function() {
+            hidePopup();
+            orderForm.classList.add('show');
+            orderForm.scrollIntoView({ behavior: 'smooth' });
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('quantity').value = totalItems;
+        };
+
+        // === ПОПАП ===
+        function showPopup(emoji, title, content) {
+            popupEmoji.textContent = emoji;
+            popupTitle.textContent = title;
+            popupBody.innerHTML = content;
+            popupOverlay.classList.add('show');
+        }
+
+        function hidePopup() { popupOverlay.classList.remove('show'); }
+
+        popupClose.addEventListener('click', hidePopup);
+        popupOverlay.addEventListener('click', function(e) { if (e.target === this) hidePopup(); });
+
+        // === КНОПКИ ===
+        addToCartBtn.addEventListener('click', function() { addToCart(selectedFlavor); });
+        cartBtn.addEventListener('click', showCart);
+        cartHeaderBtn.addEventListener('click', showCart);
+        hideFormBtn.addEventListener('click', function() { orderForm.classList.remove('show'); });
+
+        checkoutBtn.addEventListener('click', function() {
+            if (cart.length === 0) {
+                showPopup('⚠️', 'Корзина пуста', '<p>Добавьте товары в корзину, чтобы оформить заказ.</p>');
+                return;
+            }
+            orderForm.classList.add('show');
+            orderForm.scrollIntoView({ behavior: 'smooth' });
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('quantity').value = totalItems;
+            showPopup('📝', 'Оформление заказа',
+                `<p>В корзине ${totalItems} товаров на сумму ${getTotalPrice()} ₽</p>
+                 <p style="font-size: 0.9rem; opacity: 0.7;">Заполните форму ниже для доставки</p>`);
+        });
+
+        // === ОТПРАВКА ЗАКАЗА ===
+        orderForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('customerName').value.trim();
+            const phone = document.getElementById('customerPhone').value.trim();
+            const address = document.getElementById('customerAddress').value.trim();
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+
+            if (!name || !phone || !address) {
+                showPopup('⚠️', 'Заполните все поля!', '<p>Пожалуйста, укажите имя, телефон и адрес доставки.</p>');
+                return;
+            }
+
+            const orderItems = cart.map(item => `${item.name} (${item.quantity} шт.)`).join(', ');
+            const total = getTotalPrice();
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Отправка...';
+
+            try {
+                const embed = {
+                    title: '🛒 НОВЫЙ ЗАКАЗ!',
+                    color: 0x4CAF50,
+                    fields: [
+                        { name: '👤 Имя', value: name, inline: true },
+                        { name: '📱 Телефон', value: phone, inline: true },
+                        { name: '📍 Адрес', value: address, inline: false },
+                        { name: '📦 Заказ', value: orderItems || 'Не указано', inline: false },
+                        { name: '💰 Сумма', value: `${total} ₽`, inline: true },
+                        { name: '📦 Количество', value: `${cart.reduce((s, i) => s + i.quantity, 0)} шт.`, inline: true }
+                    ],
+                    timestamp: new Date().toISOString(),
+                    footer: { text: 'Сайт карамельных семечек' }
+                };
+
+                const response = await fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        content: '@everyone **Новый заказ!** 🥜',
+                        embeds: [embed] 
+                    })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(`Ошибка ${response.status}: ${JSON.stringify(result)}`);
+                }
+
+                console.log('✅ Заказ отправлен!', result);
+                showPopup('🎉', 'Заказ оформлен!',
+                    `<p>Спасибо, ${name}! Заказ отправлен в Discord ✅</p>
+                     <p style="font-size: 0.9rem; opacity: 0.7;">Заказ: ${orderItems}</p>
+                     <p style="font-size: 1.2rem; font-weight: 700; color: #4CAF50;">Итого: ${total} ₽</p>`);
+
+                ordersToday++;
+                localStorage.setItem('ordersToday', ordersToday);
+                ordersTodayEl.textContent = ordersToday;
+
+                cart = [];
+                saveCart();
+                orderForm.reset();
+                orderForm.classList.remove('show');
+                document.getElementById('quantity').value = '1';
+
+            } catch (error) {
+                console.error('❌ Ошибка:', error);
+                showPopup('❌', 'Ошибка отправки',
+                    `<p>${error.message}</p>
+                     <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 10px;">Проверьте консоль браузера (F12) и убедитесь, что вебхук правильный.</p>`);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '✅ Отправить заказ';
+            }
+        });
+
+        // === КНОПКА "ПОДРОБНЕЕ" ===
+        document.getElementById('infoBtn').addEventListener('click', function() {
+            showPopup('📋', 'Состав и уход',
+                `<p>Состав: семена подсолнечника, сахар, масло сливочное, соль.</p>
+                 <p>Срок годности: 6 месяцев.</p>
+                 <p>Хранить в сухом месте при температуре до +25°C.</p>
+                 <p style="margin-top: 10px; font-weight: 600;">Вес: 200 г</p>`);
+        });
+
+        // === ИНИЦИАЛИЗАЦИЯ ===
+        ordersTodayEl.textContent = ordersToday;
+        updateCartUI();
+
+        console.log('🚀 Сайт готов! Вебхук:', DISCORD_WEBHOOK_URL);
+    })();
+</script>
+</body>
+</html>
